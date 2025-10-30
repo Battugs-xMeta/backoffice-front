@@ -73,7 +73,7 @@ const Movement = ({ data, loading }: MovementProps) => {
                     borderRight: `4px solid ${getColor(item.status)}`,
                   }}
                 />
-                <p className="text-3xl font-bold text-[#144E5A] p-0 m-0">
+                <p className="text-3xl font-bold text-[#6759CE] p-0 m-0">
                   {item.count}
                 </p>
 

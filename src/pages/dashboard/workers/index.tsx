@@ -1,19 +1,19 @@
 import { useDebounceFn, useRequest } from "ahooks";
-import { Avatar, Card, notification } from "antd";
+import { Avatar, notification } from "antd";
+import { PageCard } from "components/card";
 import { ExportButton, FilterForm, ITable } from "components/index";
 import InitTableHeader from "components/table-header";
 import dayjs from "dayjs";
 import { useAtom } from "jotai";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import file from "service/file";
 import workers from "service/workers";
 import { WorkerList } from "service/workers/type";
 import { exportFromTable } from "utils/export";
+import { moneyFormat } from "utils/index";
 import { atomWorkersForm } from "../../../utils/store";
 import { CreateService } from "./actons/create";
 import { UpdateService } from "./actons/update";
-import { moneyFormat } from "utils/index";
-import { PageCard } from "components/card";
 
 const WorkersPage: FC = () => {
   const [form, setForm] = useAtom(atomWorkersForm);
@@ -21,7 +21,7 @@ const WorkersPage: FC = () => {
   const [search, setSearch] = useState<string>("");
 
   const list = useRequest(workers.getWorkers, {
-    manual: true,
+    // manual: true,
     onError: (err) =>
       notification.error({
         message: err.message,
@@ -35,9 +35,9 @@ const WorkersPage: FC = () => {
     });
   };
 
-  useEffect(() => {
-    run();
-  }, [form]);
+  // useEffect(() => {
+  //   run();
+  // }, [form]);
 
   const searchRun = useDebounceFn(list.run, { wait: 1000 });
 

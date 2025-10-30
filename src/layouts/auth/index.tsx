@@ -7,12 +7,12 @@ const AuthLayout: FC = () => {
       <div
         className="hidden sm:block col-span-7 h-screen "
         style={{
-          backgroundImage: "url('/asramj/background/login.svg')",
+          backgroundImage: "url('/xmeta/background/login.svg')",
           backgroundSize: "cover",
           backgroundColor: "",
         }}
       >
-        <div className="bg-[#144E5A] hidden sm:block col-span-3 h-screen opacity-70 relative">
+        <div className="bg-[#6759CE] hidden sm:block col-span-3 h-screen opacity-70 relative">
           <div className="flex items-start flex-col justify-end h-full absolute bottom-24 left-32 gap-6">
             <div className="text-white text-6xl">
               Асрамжийн газрын удирдлага

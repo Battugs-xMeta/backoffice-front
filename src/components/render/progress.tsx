@@ -35,11 +35,11 @@ export const IProgress = ({
     );
   }
   return (
-    <Tooltip title={rest.toolTipInfo} color="#144E5A">
+    <Tooltip title={rest.toolTipInfo} color="#6759CE">
       <div className="flex items-center gap-2">
         <Progress
           {...rest}
-          strokeColor={"#144E5A"}
+          strokeColor={"#6759CE"}
           showInfo={false}
           className="w-[100px]"
         />

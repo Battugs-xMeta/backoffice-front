@@ -37,7 +37,7 @@ const DashboardCard = ({
           </span>
         </div>
         <div className="flex items-center justify-between mt-5">
-          <div className="text-[#144E5A] text-4xl font-bold -tracking-tight">
+          <div className="text-[#6759CE] text-4xl font-bold -tracking-tight">
             {moneyFormat(amount)} {isMoney && "₮"}
           </div>
           {percent ? (

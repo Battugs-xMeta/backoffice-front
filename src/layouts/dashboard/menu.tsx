@@ -2,17 +2,17 @@ import { MenuDataItem } from "@ant-design/pro-layout";
 import Certifcate from "assets/icons/certificate-01.svg";
 import Credentials from "assets/icons/credentials.svg";
 import Currency from "assets/icons/currency-dollar.svg";
-import File04 from "assets/icons/file-04.svg";
 import File03 from "assets/icons/file-03.svg";
+import File04 from "assets/icons/file-04.svg";
 import DeveloperPlan from "assets/icons/file-06.svg";
 import HomeIcon from "assets/icons/home-line.svg";
 import List from "assets/icons/list.svg";
+import Lock from "assets/icons/lock.svg";
+import Organization from "assets/icons/organization.svg";
 import Requested from "assets/icons/requests.svg";
+import Settings from "assets/icons/settings.svg";
 import UserRight from "assets/icons/user-right-01.svg";
 import Workers from "assets/icons/users-01.svg";
-import Organization from "assets/icons/organization.svg";
-import Lock from "assets/icons/lock.svg";
-import Settings from "assets/icons/settings.svg";
 export interface GroupedMenuProps {
   icon: any;
   path: string;
@@ -42,35 +42,136 @@ const PickIcon = (path: string) => {
   return null;
 };
 
-export const AuthMenuRender = (menus: any) => {
-  let map: any = {};
-  menus?.forEach((el: any) => {
-    if (map[`${el.parent_id}`]) {
-      map[`${el.parent_id}`] = {
-        ...map[`${el.parent_id}`],
-        childs: [...map[`${el.parent_id}`]?.childs, el],
-      };
-    } else {
-      map[`${el.parent_id}`] = {
-        parent: el.parent,
-        childs: [el],
-      };
-    }
-  });
+// export const AuthMenuRender = (menus: any) => {
+//   let map: any = {};
+//   menus?.forEach((el: any) => {
+//     if (map[`${el.parent_id}`]) {
+//       map[`${el.parent_id}`] = {
+//         ...map[`${el.parent_id}`],
+//         childs: [...map[`${el.parent_id}`]?.childs, el],
+//       };
+//     } else {
+//       map[`${el.parent_id}`] = {
+//         parent: el.parent,
+//         childs: [el],
+//       };
+//     }
+//   });
 
-  return Object.keys(map)?.map((el) => {
-    return {
-      key: map[el]?.parent?.path,
-      name: map[el]?.parent?.name,
-      icon: null,
-      children: map[el]?.childs?.map((item: any) => {
-        return {
-          key: item?.path,
-          name: item?.name,
-          path: item?.path,
-          icon: PickIcon(item?.path),
-        };
-      }),
-    };
-  });
-};
+//   return Object.keys(map)?.map((el) => {
+//     return {
+//       key: map[el]?.parent?.path,
+//       name: map[el]?.parent?.name,
+//       icon: null,
+//       children: map[el]?.childs?.map((item: any) => {
+//         return {
+//           key: item?.path,
+//           name: item?.name,
+//           path: item?.path,
+//           icon: PickIcon(item?.path),
+//         };
+//       }),
+//     };
+//   });
+// };
+export const GroupedMenu: GroupedMenuProps[] = [
+  {
+    icon: <img src={HomeIcon} />,
+    name: "Dashboard",
+    path: "/xmeta/dashboard/dashboard",
+    children: [],
+  },
+  {
+    name: "User management",
+    icon: null,
+    path: "",
+    children: [
+      {
+        icon: <img src={File04} />,
+        name: "KYC INFO",
+        path: "/xmeta/dashboard/finance",
+      },
+      {
+        icon: <img src={File03} />,
+        name: "Тайлан мэдээ",
+        path: "/xmeta/dashboard/report",
+      },
+      {
+        icon: <img src={Credentials} />,
+        name: "Магадлан итгэмжлэл",
+        path: "/xmeta/dashboard/credentials",
+      },
+      {
+        icon: <img src={Currency} />,
+        name: "Санхүү",
+        path: "/xmeta/dashboard/finance",
+      },
+    ],
+  },
+  {
+    name: "Financials",
+    icon: null,
+    path: "",
+    children: [
+      {
+        icon: <img src={Workers} />,
+        name: "Ажилчдын жагсаалт",
+        path: "/xmeta/dashboard/workers",
+      },
+      {
+        icon: <img src={Certifcate} />,
+        name: "Сургалт хөгжил",
+        path: "/xmeta/dashboard/training",
+      },
+      // {
+      //   icon: <img src={Trophy} />,
+      //   name: "Шагнал",
+      //   path: "/xmeta/dashboard/reward",
+      // },
+      // {
+      //   icon: <img src={Currency} />,
+      //   name: "Цалин хөлс",
+      //   path: "/xmeta/dashboard/salary",
+      // },
+    ],
+  },
+  {
+    name: "User Trade",
+    icon: null,
+    path: "",
+    children: [
+      {
+        icon: <img src={Requested} />,
+        name: "Хүсэлт",
+        path: "/xmeta/dashboard/requested",
+      },
+      {
+        icon: <img src={List} />,
+        name: "Үйлчлүүлэгчдийн жагсаалт",
+        path: "/xmeta/dashboard/care-information",
+      },
+      {
+        icon: <img src={UserRight} />,
+        name: "Шилжилт хөдөлгөөн",
+        path: "/xmeta/dashboard/transictions",
+      },
+    ],
+  },
+  {
+    name: "Тохиргоо",
+    icon: null,
+    path: "",
+    children: [
+      {
+        icon: <img src={DeveloperPlan} />,
+        name: "Хөгжлийн төлөвлөгөө",
+        path: "/xmeta/dashboard/developer-plan",
+      },
+      {
+        icon: <img src={Organization} />,
+        name: "Буяны байгууллага",
+        path: "/xmeta/dashboard/charity-organization",
+      },
+    ],
+  },
+];

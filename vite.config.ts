@@ -1,5 +1,4 @@
 import react from "@vitejs/plugin-react";
-import reactRefresh from "@vitejs/plugin-react-refresh";
 import { defineConfig } from "vite";
 import { nodePolyfills } from "vite-plugin-node-polyfills";
 import tsconfigPaths from "vite-tsconfig-paths";
@@ -38,12 +37,11 @@ export default defineConfig({
       usePolling: true,
     },
   },
-  base: "/asramj",
+  base: "/xmeta",
   plugins: [
     react({
       include: ["**/*.tsx", "**/*.ts", "**/*.less"],
     }),
-    reactRefresh(),
     tsconfigPaths(),
     nodePolyfills(),
   ],

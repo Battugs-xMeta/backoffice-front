@@ -2,7 +2,7 @@ import { lazy } from "react";
 import { IRoute } from "./types";
 
 const TrainingPage = lazy(() => import("pages/dashboard/training"));
-const FinancePage = lazy(() => import("pages/dashboard/finance"));
+const FinancePage = lazy(() => import("pages/dashboard/user-management"));
 const WorkersPage = lazy(() => import("pages/dashboard/workers"));
 const TransictionsPage = lazy(() => import("pages/dashboard/transictions"));
 const RequestedPage = lazy(() => import("pages/dashboard/requested"));

@@ -1,10 +1,11 @@
-import { BaseResponse } from "types";
 import axios, { AxiosRequestConfig, CancelToken } from "axios";
 import auth from "service/auth";
+import { BaseResponse } from "types";
 
 const baseURL = import.meta.env.VITE_API_URL;
 const webSocketURL = import.meta.env.VITE_WS_URL;
 
+console.log(baseURL, "sdaaa3");
 export interface IParams {
   [key: string]: string;
 }

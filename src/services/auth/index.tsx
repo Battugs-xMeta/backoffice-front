@@ -1,13 +1,15 @@
 import { decryptWithAES, encryptWithAES } from "utils/parse";
 import http from "..";
-import { LoginData, LoginResponse, Admin } from "./type";
-const tokenKey = "carecenter.token";
+import { Admin, LoginData, LoginResponse } from "./type";
+const tokenKey = "xmeta.token";
 const userKey = "app.user";
 namespace auth {
-  export const login = (body?: any) =>
-    http.post<LoginResponse>("carecenter/auth/login", {
+  export const login = (body?: any) => {
+    console.log("sdaaa2");
+    return http.post<LoginResponse>("/auth/login", {
       body,
     });
+  };
   // export const singOut = () => auth.signOut();
   export const saveToken = (token: string) => {
     localStorage.setItem(tokenKey, token);
@@ -17,8 +19,7 @@ namespace auth {
   export const removeToken = () => localStorage.removeItem(tokenKey);
   export const getToken = () => localStorage.getItem(tokenKey);
 
-  export const info = () =>
-    http.get<Admin>("carecenter/auth/info", { hasAuth: true });
+  export const info = () => http.get<Admin>("/auth/info", { hasAuth: true });
 
   export const rememberUser = (values: LoginData) => {
     if (values.remember) {

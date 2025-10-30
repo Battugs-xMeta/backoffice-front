@@ -19,7 +19,7 @@ export const Process = ({ items, process }: Props) => {
         size="small"
         success={{ percent: percent?.[0], strokeColor: "#D0D5DD" }}
         trailColor="#D0D5DD"
-        strokeColor={"#144E5A"}
+        strokeColor={"#6759CE"}
       />
     </div>
   );

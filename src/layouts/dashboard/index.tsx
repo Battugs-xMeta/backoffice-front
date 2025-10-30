@@ -1,6 +1,5 @@
 import ProLayout from "@ant-design/pro-layout";
 import { PageHeader } from "components/page_header";
-import { Settings } from "components/settings";
 import { useAuthContext } from "context/auth";
 import { FC, useState } from "react";
 import {
@@ -10,9 +9,8 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
-import file from "service/file";
 import Header from "./header";
-import { AuthMenuRender } from "./menu";
+import { GroupedMenu } from "./menu";
 
 type Props = {
   children?: any;
@@ -28,9 +26,7 @@ const DashboardLayout: FC<Props> = ({}) => {
   if (!authorized) return <Navigate to={"/auth/login"} />;
 
   const Logo = ({ user }: { user: any }) => {
-    const imgSrc = user?.care_center
-      ? file.fileToUrl(user?.care_center?.logo?.physical_path)
-      : "/images/logo.jpg";
+    const imgSrc = "/images/logo.jpg";
 
     return (
       <div className="w-full">
@@ -62,14 +58,12 @@ const DashboardLayout: FC<Props> = ({}) => {
     <div id="pro-layout">
       <ProLayout
         siderWidth={280}
-        menuDataRender={() =>
-          AuthMenuRender(user?.role?.menus?.map((el: any) => el?.menu))
-        }
+        menuDataRender={() => GroupedMenu}
         menuItemRender={(item: any, dom) => {
           return (
             <Link
               className={checkActiveMenu(item.path)}
-              to={item.path.replace("/asramj", "")}
+              to={item.path.replace("/xmeta", "")}
             >
               {dom}
             </Link>
@@ -93,7 +87,6 @@ const DashboardLayout: FC<Props> = ({}) => {
         menu={{
           defaultOpenAll: true,
           autoClose: false,
-          type: "group",
         }}
         onCollapse={(collapsed) => setCollapsed(collapsed)}
         rightContentRender={() => <Header collapsed={collapsed} />}
@@ -108,20 +101,6 @@ const DashboardLayout: FC<Props> = ({}) => {
         layout="side"
         colorWeak={false}
         logo={<Logo user={user} />}
-        // logo={
-        //   <div className={`flex items-center gap-2`}>
-        //     <img
-        //       src={Logo}
-        //       alt="logo"
-        //       onClick={() => navigate("/dashboard/government/requests")}
-        //     />
-        //     {!collapsed && (
-        //       <div className="text-white text-sm">
-        //         Хөдөлмөр, халамжийн үйлчилгээний ерөнхий газар
-        //       </div>
-        //     )}
-        //   </div>
-        // }
         logoStyle={{
           marginTop: "3vh",
           display: "flex",
@@ -135,7 +114,6 @@ const DashboardLayout: FC<Props> = ({}) => {
         <PageHeader />
         <Outlet />
       </ProLayout>
-      <Settings />
     </div>
   );
 };

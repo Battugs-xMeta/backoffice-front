@@ -124,7 +124,7 @@ const localeObject = {
 };
 
 const themeToken = {
-  colorPrimary: "#144E5A",
+  colorPrimary: "#6759CE",
   fontFamily: "Inter",
   fontSize: 14,
   colorBorder: "#D0D5DD",
@@ -142,15 +142,15 @@ root.render(
     theme={{
       token: themeToken,
       // token: {
-      //   colorPrimary: "#144E5A",
+      //   colorPrimary: "#6759CE",
       //   fontFamily: "Inter",
       //   colorBorder: "#D0D5DD",
       // },
     }}
   >
-    <ProConfigProvider valueTypeMap={proMNLocale} token={themeToken}>
+    <ProConfigProvider token={themeToken}>
       <AuthProvider>
-        <BrowserRouter basename="/asramj">
+        <BrowserRouter basename="/xmeta">
           <Routes />
         </BrowserRouter>
       </AuthProvider>

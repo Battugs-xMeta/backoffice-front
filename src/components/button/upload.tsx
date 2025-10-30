@@ -35,7 +35,7 @@ export const UploadDraggerButton = ({
               <div>
                 <img src={EditIcon} />
               </div>
-              <span className=" font-semibold  text-[#144E5A] mr-1">
+              <span className=" font-semibold  text-[#6759CE] mr-1">
                 Файл оруулах
               </span>
             </div>

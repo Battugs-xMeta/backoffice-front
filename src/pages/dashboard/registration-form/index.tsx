@@ -1,9 +1,10 @@
-import { ArrowRightOutlined, CloudDownloadOutlined } from "@ant-design/icons";
+import { ArrowRightOutlined } from "@ant-design/icons";
 import { useRequest } from "ahooks";
 import { Button, Card, Collapse, Tag, notification } from "antd";
 import { CollapseProps } from "antd/lib";
 import updateIcon from "assets/icons/updateIcon.svg";
 import { IfCondition } from "components/condition";
+import { Process } from "components/process";
 import { RegisterFormStatus, RegisterFormStatusEnum } from "config";
 import React, { useEffect } from "react";
 import register_form from "service/registration-form";
@@ -15,7 +16,6 @@ import AC12 from "./new-and-returned/AC12";
 import SentAC11A from "./sent-and-approved/AC11A";
 import SentAC11B from "./sent-and-approved/AC11B";
 import SentAC12 from "./sent-and-approved/AC12";
-import { Process } from "components/process";
 
 const RegistrationForm: React.FC = () => {
   const [current, setCurrent] = React.useState(["1"]);

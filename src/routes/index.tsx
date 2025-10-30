@@ -6,17 +6,12 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import auhtRoutes from "routes/auth";
 import dashboardRoutes from "routes/dashboard";
 import { IRoute } from "./types";
-import { useRequest } from "ahooks";
-import roleManagement from "service/role-management";
 
 const AuthLayout = lazy(() => import("layout/auth"));
 const DashboardLayout = lazy(() => import("layout/dashboard"));
 
 const MainRoutes: FC = () => {
-  const [{ authorized, user }] = useAuthContext();
-  const menus = useRequest(roleManagement.listMenu, {
-    refreshDeps: [authorized],
-  });
+  const [{ authorized }] = useAuthContext();
 
   const routes: IRoute[] = [
     {
@@ -49,43 +44,19 @@ const MainRoutes: FC = () => {
             </ErrorBoundary>
           }
         >
-          {route?.children?.map((item) => {
-            if (
-              user?.role?.menus?.find((el: any) =>
-                el?.menu?.path?.includes(item.path)
-              )
-            ) {
-              return (
-                <Route
-                  key={item.key}
-                  path={item.path}
-                  element={
-                    <ErrorBoundary>
-                      <Suspense fallback={<PageLoading />}>
-                        {item.component}
-                      </Suspense>
-                    </ErrorBoundary>
-                  }
-                />
-              );
-            } else if (
-              !menus.data?.find((el) => el.path?.includes(item?.path || ""))
-            ) {
-              return (
-                <Route
-                  key={item.key}
-                  path={item.path}
-                  element={
-                    <ErrorBoundary>
-                      <Suspense fallback={<PageLoading />}>
-                        {item.component}
-                      </Suspense>
-                    </ErrorBoundary>
-                  }
-                />
-              );
-            }
-          })}
+          {route.children?.map((item) => (
+            <Route
+              key={item.key}
+              path={item.path}
+              element={
+                <ErrorBoundary>
+                  <Suspense fallback={<PageLoading />}>
+                    {item.component}
+                  </Suspense>
+                </ErrorBoundary>
+              }
+            />
+          ))}
         </Route>
       ))}
       <Route
@@ -93,13 +64,7 @@ const MainRoutes: FC = () => {
         path="*"
         element={
           authorized ? (
-            <Navigate
-              to={
-                // user?.care_center?.status !== 3
-                //  "/dashboard/registration"
-                "/dashboard/dashboard"
-              }
-            />
+            <Navigate to={"/dashboard/dashboard"} />
           ) : (
             <Navigate to="/auth/login" />
           )

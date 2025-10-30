@@ -2,10 +2,6 @@
 const colors = require("tailwindcss/colors");
 
 module.exports = {
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
-  theme: {
-    extend: {},
-  },
   plugins: [],
   corePlugins: {
     preflight: false, // <== disable this!
@@ -13,6 +9,7 @@ module.exports = {
   important: true,
   theme: {
     screens: {
+      xs: "480px",
       sm: "640px",
       // => @media (min-width: 640px) { ... }
 
@@ -48,7 +45,7 @@ module.exports = {
           200: "#E9D4FE",
           300: "#D6BBFB",
           400: "#B692F6",
-          500: "#144E5A",
+          500: "#6759CE",
           600: "#7F56D9",
           700: "#6941C6",
           800: "#53389E",

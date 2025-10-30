@@ -5,7 +5,6 @@ import ProForm, {
 } from "@ant-design/pro-form";
 import { useRequest } from "ahooks";
 import { Button, notification } from "antd";
-import { FORM_ITEM_RULE } from "config";
 import { useAuthContext } from "context/auth";
 import { Action } from "context/type";
 import { FC, useRef } from "react";
@@ -14,7 +13,7 @@ import auth from "service/auth";
 import { LoginData } from "service/auth/type";
 
 const Login: FC = () => {
-  const formRef = useRef<ProFormInstance<LoginData>>();
+  const formRef = useRef<ProFormInstance<LoginData>>(null);
 
   const [, setAuth] = useAuthContext();
   const userData = auth.getRememberUser();
@@ -24,8 +23,6 @@ const Login: FC = () => {
     onSuccess: (data) => {
       auth.saveToken(data.token);
       setAuth([Action.SIGN_IN, data?.employee]);
-      // user?.care_center?.status !== 3
-      // ? navigate("/dashboard/registration")
       navigate("/dashboard/dashboard");
       notification.success({
         message: "Амжилттай нэвтэрлээ",
@@ -41,7 +38,11 @@ const Login: FC = () => {
   return (
     <div className="bg-white rounded-xl w-full px-16">
       <div className="align-left flex justify-start">
-        <img src="/asramj/images/logo.jpg" alt="logo" style={{ borderRadius: 1000 }} />
+        <img
+          src="/xmeta/images/logo.jpg"
+          alt="logo"
+          style={{ borderRadius: 1000 }}
+        />
       </div>
       <ProForm<LoginData>
         formRef={formRef}
@@ -51,6 +52,7 @@ const Login: FC = () => {
           className: "font-medium",
         }}
         onFinish={async (data: LoginData) => {
+          console.log("sdaaa");
           auth.rememberUser(data);
 
           const sendJSON = { ...data, email: data.email.toLowerCase() };
@@ -97,11 +99,11 @@ const Login: FC = () => {
             rules={[
               {
                 required: true,
-                message: "Нууц үг оруулна уу!"
+                message: "Нууц үг оруулна уу!",
               },
             ]}
           />
-          <div className="flex items-center space-x-3 custom-ant-item-margin-remove">
+          <div className="flex items-center gap-1 custom-ant-item-margin-remove">
             <ProFormCheckbox
               id="remember"
               name="remember"

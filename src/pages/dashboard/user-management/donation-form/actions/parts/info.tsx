@@ -230,7 +230,7 @@ export const Info = ({ goods }: InfoProps) => {
                 icon={<PlusOutlined rev={undefined} />}
                 type="primary"
                 ghost
-                className="mb-3 border-0  font-medium text-[#144E5A]"
+                className="mb-3 border-0  font-medium text-[#6759CE]"
                 onClick={() => actionRef.current?.add({})}
               >
                 Нэмэх

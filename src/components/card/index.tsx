@@ -75,13 +75,13 @@ export const ArrowCard = ({ title, number, href, loading }: ArrowCardProps) => {
         }}
       >
         <h1 className=" font-semibold text-base text-[#101828]">{title}</h1>
-        <div className=" w-full flex justify-between items-center text-3xl text-[#144E5A]">
+        <div className=" w-full flex justify-between items-center text-3xl text-[#6759CE]">
           <div>
             <p className="font-semibold m-0 p-0">{number}</p>
           </div>
           <div>
             <FaArrowRight
-              color="#144E5A"
+              color="#6759CE"
               size={18}
               className=" group-hover:translate-x-1 translate-x-0 transition-transform duration-300 ease-in-out"
             />

@@ -55,7 +55,7 @@ const InitTableHeader: React.FC<TableHeaderProps> = ({
   const [stre, setStore] = useAtom<any>(store || init);
   const [createShow, setCreateShow] = useState(false);
 
-  const form = useRef<ProFormInstance>();
+  const form = useRef<ProFormInstance>(null);
 
   const checkIfChanged = () => {
     const { deadline, full_date, ...rest } =
@@ -79,16 +79,27 @@ const InitTableHeader: React.FC<TableHeaderProps> = ({
           {customHeaderTitle}
         </div>
         <div className="flex gap-2 flex-wrap ant-form-item-margin-remove">
-          {/* <Button
+          <Button
             size="large"
             className={hideFormFilter ? "hidden" : ""}
             hidden={hideFormFilter}
-            icon={<FilterOutlined rev />}
+            icon={
+              (
+                <FilterOutlined
+                  rev={undefined}
+                  color="#66708066"
+                  className="text-sm"
+                  size={20}
+                  onPointerEnterCapture={undefined}
+                  onPointerLeaveCapture={undefined}
+                />
+              ) as unknown as React.ReactNode
+            }
           >
             {checkIfChanged() && (
               <div className="absolute -top-1 -right-1 w-2 z-[10] h-2 bg-red-500 rounded-full"></div>
             )}
-          </Button> */}
+          </Button>
           <ProFormText
             name={"text"}
             placeholder={searchPlaceHolder || "Хайх"}

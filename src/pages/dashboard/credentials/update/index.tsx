@@ -66,7 +66,7 @@ const AccreditationUpdate: React.FC<any> = () => {
         message: "Амжилттай хадгалллаа",
       });
       setTimeout(() => {
-        window.location.href = "/asramj/dashboard/credentials";
+        window.location.href = "/dashboard/credentials";
       }, 500);
     },
     onError: (err) =>
