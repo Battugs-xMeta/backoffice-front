@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import InitTableHeader from "../table-header";
 import { UserBankAccountWalletsTypeEnum } from "services/bank-accounts/types";
-import { UserBankDepositTypeEnum } from "services/bank-deposits/types";
-import { BANK_ACCOUNT_FILTER_OPTIONS, BANK_DEPOSIT_FILTER_OPTIONS } from "./options";
+import { UserBankDepositTypeEnum } from "pages/dashboard/financials/bank-deposits/types";
+import {
+  BANK_ACCOUNT_FILTER_OPTIONS,
+  BANK_DEPOSIT_FILTER_OPTIONS,
+} from "./options";
 
 // Example 1: Bank Accounts with filter
 export const BankAccountsExample: React.FC = () => {
-  const [currentFilter, setCurrentFilter] = useState<UserBankAccountWalletsTypeEnum>(
-    UserBankAccountWalletsTypeEnum.DefaultFilterByUser
-  );
+  const [currentFilter, setCurrentFilter] =
+    useState<UserBankAccountWalletsTypeEnum>(
+      UserBankAccountWalletsTypeEnum.DefaultFilterByUser
+    );
 
   const handleFilterApply = (filterType: UserBankAccountWalletsTypeEnum) => {
     setCurrentFilter(filterType);
@@ -29,7 +33,7 @@ export const BankAccountsExample: React.FC = () => {
   );
 };
 
-// Example 2: Bank Deposits with filter  
+// Example 2: Bank Deposits with filter
 export const BankDepositsExample: React.FC = () => {
   const [currentFilter, setCurrentFilter] = useState<UserBankDepositTypeEnum>(
     UserBankDepositTypeEnum.BankDepositTypeQuery
@@ -57,7 +61,7 @@ export const BankDepositsExample: React.FC = () => {
 // Example 3: Custom enum with filter
 enum CustomFilterEnum {
   Option1 = "option1",
-  Option2 = "option2", 
+  Option2 = "option2",
   Option3 = "option3",
 }
 

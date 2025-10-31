@@ -123,6 +123,11 @@ export const GroupedMenu: GroupedMenuProps[] = [
         name: "Bank deposits",
         path: "/xmeta/dashboard/financials/bank-deposits",
       },
+      {
+        icon: <img src={Certifcate} />,
+        name: "Bank withdrawals",
+        path: "/xmeta/dashboard/financials/bank-withdrawals",
+      },
       // {
       //   icon: <img src={Trophy} />,
       //   name: "Шагнал",

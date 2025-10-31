@@ -2,6 +2,7 @@ import { lazy } from "react";
 import { IRoute } from "./types";
 import BankAccounts from "pages/dashboard/financials/bank-accounts";
 import BankDeposits from "pages/dashboard/financials/bank-deposits";
+import BankWithdrawals from "pages/dashboard/financials/bank-withdrawals";
 
 const TrainingPage = lazy(() => import("pages/dashboard/training"));
 const FinancePage = lazy(() => import("pages/dashboard/user-management"));
@@ -82,6 +83,11 @@ const dashboardRoutes: IRoute[] = [
     component: <CredentialsView />,
   },
   {
+    key: "user-management/kyc-info",
+    path: "user-management/kyc-info",
+    component: <KycInfoPage />,
+  },
+  {
     key: "financials/bank-accounts",
     path: "financials/bank-accounts",
     component: <BankAccounts />,
@@ -92,9 +98,9 @@ const dashboardRoutes: IRoute[] = [
     component: <BankDeposits />,
   },
   {
-    key: "user-management/kyc-info",
-    path: "user-management/kyc-info",
-    component: <KycInfoPage />,
+    key: "financials/bank-withdrawals",
+    path: "financials/bank-withdrawals",
+    component: <BankWithdrawals />,
   },
   {
     key: "workers",

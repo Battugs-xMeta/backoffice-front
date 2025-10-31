@@ -1,6 +1,9 @@
 import { PaginationResponse } from "types";
-import http from "..";
-import { UserListType, UserListRequest } from "service/users/types";
+import http from "../../../../services";
+import {
+  UserListType,
+  UserListRequest,
+} from "pages/dashboard/user-management/kyc-info/types";
 
 namespace usersService {
   export const list = (body: UserListRequest) =>

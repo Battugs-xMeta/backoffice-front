@@ -1,5 +1,5 @@
-import { UserBankAccountWalletsTypeEnum } from "services/bank-accounts/types";
-import { UserBankDepositTypeEnum } from "services/bank-deposits/types";
+import { UserBankAccountWalletsTypeEnum } from "pages/dashboard/financials/bank-accounts/types";
+import { UserBankDepositTypeEnum } from "pages/dashboard/financials/bank-deposits/types";
 
 export const BANK_ACCOUNT_FILTER_OPTIONS = [
   {
@@ -8,7 +8,8 @@ export const BANK_ACCOUNT_FILTER_OPTIONS = [
   },
   {
     label: "Account Number",
-    value: UserBankAccountWalletsTypeEnum.UserBankAccountWalletsTypeAccountNumber,
+    value:
+      UserBankAccountWalletsTypeEnum.UserBankAccountWalletsTypeAccountNumber,
   },
   {
     label: "Default Filter By User",

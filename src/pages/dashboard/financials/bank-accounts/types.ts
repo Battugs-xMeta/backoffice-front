@@ -1,4 +1,4 @@
-import { UserListType } from "service/users/types";
+import { UserListType } from "pages/dashboard/user-management/kyc-info/types";
 
 export interface BankAccountListRequest {
   current?: number;

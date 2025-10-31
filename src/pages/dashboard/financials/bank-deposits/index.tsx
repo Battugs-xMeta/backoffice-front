@@ -10,11 +10,11 @@ import { PageCard } from "components/card";
 import moment from "moment";
 import { Breadcrumbs } from "components/breadcrumbs";
 import Badge from "components/badge";
-import bankDepositService from "services/bank-deposits";
+import bankDepositService from "pages/dashboard/financials/bank-deposits/service";
 import {
   BankDepositListType,
   UserBankDepositTypeEnum,
-} from "services/bank-deposits/types";
+} from "pages/dashboard/financials/bank-deposits/types";
 import { BANK_DEPOSIT_FILTER_OPTIONS } from "components/filter-popover/options";
 
 const BankDeposits = () => {

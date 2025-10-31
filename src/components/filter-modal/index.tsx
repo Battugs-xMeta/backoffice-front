@@ -1,6 +1,5 @@
 import { Modal, Radio, Button, Space, Typography } from "antd";
-import React, { useState } from "react";
-import { UserBankAccountWalletsTypeEnum } from "services/bank-accounts/types";
+import { useState } from "react";
 
 const { Text } = Typography;
 
