@@ -1,5 +1,5 @@
 import { PaginationResponse } from "types";
-import http from "..";
+import http from "../../../../services";
 import { BankDepositListRequest, BankDepositListType } from "./types";
 
 namespace bankDepositService {

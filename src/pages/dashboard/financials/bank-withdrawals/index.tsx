@@ -11,19 +11,22 @@ import moment from "moment";
 import { Breadcrumbs } from "components/breadcrumbs";
 import Badge from "components/badge";
 import { BANK_ACCOUNT_FILTER_OPTIONS } from "components/filter-popover/options";
-import { BankAccountListItem, UserBankAccountWalletsTypeEnum } from "./types";
-import bankAccountService from "./service";
+import bankWithdrawalsService from "pages/dashboard/financials/bank-withdrawals/service";
+import {
+  BankWithdrawalsListType,
+  UserBankWithdrawalsTypeEnum,
+} from "pages/dashboard/financials/bank-withdrawals/types";
 
-const BankAccounts = () => {
+const BankWithdrawals = () => {
   const [form, setForm] = useAtom(atomBankAccountsForm);
   const [search, setSearch] = useState<string>("");
   const [currentFilter, setCurrentFilter] =
-    useState<UserBankAccountWalletsTypeEnum>(
-      UserBankAccountWalletsTypeEnum.DefaultFilterByUser
+    useState<UserBankWithdrawalsTypeEnum>(
+      UserBankWithdrawalsTypeEnum.BankWithdrawalsTypeQuery
     );
 
   const handleFilterApply = (filterType: string) => {
-    const enumValue = filterType as UserBankAccountWalletsTypeEnum;
+    const enumValue = filterType as UserBankWithdrawalsTypeEnum;
     setCurrentFilter(enumValue);
     list.run({
       current: form?.current || 1,
@@ -33,7 +36,7 @@ const BankAccounts = () => {
     });
   };
 
-  const list = useRequest(bankAccountService.list, {
+  const list = useRequest(bankWithdrawalsService.list, {
     manual: true,
     onError: (err) =>
       notification.error({
@@ -52,7 +55,7 @@ const BankAccounts = () => {
 
   return (
     <div className="flex flex-col gap-4">
-      <Breadcrumbs path={<span>Bank Accounts</span>} />
+      <Breadcrumbs path={<span>Bank Withdrawals</span>} />
       <PageCard xR>
         <div className="px-2">
           <InitTableHeader
@@ -65,7 +68,7 @@ const BankAccounts = () => {
                 type: currentFilter,
               });
             }}
-            customHeaderTitle="Bank Accounts"
+            customHeaderTitle="Bank Withdrawals"
             refresh={() =>
               list.run({ ...form, query: search, type: currentFilter })
             }
@@ -73,14 +76,14 @@ const BankAccounts = () => {
             hideFormFilter={false}
             onFilterApply={handleFilterApply}
             filterOptions={BANK_ACCOUNT_FILTER_OPTIONS}
-            filterTitle="Filter Bank Accounts"
+            filterTitle="Filter Bank Withdrawals"
             defaultFilterValue={currentFilter}
             toolbarItems={
               <div className="flex">
                 <ExportButton
                   onClick={() => {
                     exportFromTable(
-                      ["Bank Accounts"],
+                      ["Bank Withdrawals"],
                       globalThis.document.getElementById(
                         "main-table"
                       ) as HTMLElement
@@ -91,8 +94,10 @@ const BankAccounts = () => {
             }
           />
         </div>
-        <ITable<BankAccountListItem>
-          dataSource={list?.data?.items ?? []}
+        <ITable<BankWithdrawalsListType>
+          dataSource={
+            (list?.data?.items ?? []) as unknown as BankWithdrawalsListType[]
+          }
           total={list.data?.total}
           loading={list.loading}
           form={form}
@@ -114,9 +119,11 @@ const BankAccounts = () => {
               dataIndex: "accountName",
               title: "Овог нэр",
               align: "left",
-              render: (value) => (
+              render: (_, option) => (
                 <span className="text-sm text-[#475467] font-normal flex text-center">
-                  {value ?? ""}
+                  {`${option?.User?.lastName ?? ""} ${
+                    option?.User?.firstName ?? ""
+                  }`}
                 </span>
               ),
             },
@@ -131,17 +138,40 @@ const BankAccounts = () => {
               ),
             },
             {
-              dataIndex: "bank",
-              title: "Банкны нэр",
-              render: (_: any, option) => (
+              dataIndex: "iban",
+              title: "IBAN",
+              align: "left",
+              render: (_, option) => (
                 <span className="text-sm text-[#475467] font-normal flex text-center">
-                  {option.Bank.nameMn || "-"}
+                  {option?.Wallet?.iban ?? ""}
                 </span>
               ),
             },
             {
-              dataIndex: "iban",
-              title: "IBAN",
+              dataIndex: "bank status",
+              title: "bank status",
+              align: "left",
+              render: (_, option) => (
+                <Badge
+                  title={String(option?.Wallet?.status)}
+                  color={
+                    option?.Wallet?.status === "verified" ? "green" : "yellow"
+                  }
+                />
+              ),
+            },
+            {
+              dataIndex: "receiveAmount",
+              title: "receiveAmount",
+              render: (value: any) => (
+                <span className="text-sm text-[#475467] font-normal flex text-center">
+                  {value}
+                </span>
+              ),
+            },
+            {
+              dataIndex: "totalAmount",
+              title: "totalAmount",
               render: (value: any) => (
                 <span className="text-sm text-[#475467] font-normal flex text-center">
                   {value}
@@ -159,8 +189,8 @@ const BankAccounts = () => {
               ),
             },
             {
-              dataIndex: "verifiedAt",
-              title: "Баталгаажсан огноо",
+              dataIndex: "transferTime",
+              title: "Шилжүүлгийн огноо",
               align: "center",
               render: (value) => (
                 <span className="text-sm text-[#475467] font-normal">
@@ -201,4 +231,4 @@ const BankAccounts = () => {
   );
 };
 
-export default BankAccounts;
+export default BankWithdrawals;

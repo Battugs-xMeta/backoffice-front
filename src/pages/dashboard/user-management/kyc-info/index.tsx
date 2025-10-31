@@ -8,10 +8,10 @@ import InitTableHeader from "components/table-header";
 import { useAtom } from "jotai";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import usersService from "service/users";
-import { UserListType } from "service/users/types";
 import { exportFromTable } from "utils/export";
 import { atomUsersForm } from "utils/store";
+import usersService from "./service";
+import { UserListType } from "./types";
 
 const KycInfo = () => {
   const [form, setForm] = useAtom(atomUsersForm);

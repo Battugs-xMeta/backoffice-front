@@ -1,6 +1,6 @@
 import { PaginationResponse } from "types";
-import http from "..";
 import { BankAccountListItem, BankAccountListRequest } from "./types";
+import http from "service/index";
 
 namespace bankAccountService {
   export const list = (body: BankAccountListRequest) =>

@@ -10,15 +10,16 @@ import { FORM_ITEM_RULE } from "config";
 import { useAtom } from "jotai";
 import moment from "moment";
 import { useEffect, useState } from "react";
-import bankDepositService from "services/bank-deposits";
+
+import { atomBankDepositsForm } from "utils/store";
+import bankDepositService from "./service";
 import {
   BankDepositListType,
   UserBankDepositConditionTypeEnum,
   UserBankDepositConditionTypeEnumOptions,
   UserBankDepositTypeEnum,
   UserBankDepositTypeEnumOptions,
-} from "services/bank-deposits/types";
-import { atomBankDepositsForm } from "utils/store";
+} from "./types";
 
 const BankDeposits = () => {
   const [form, setForm] = useAtom(atomBankDepositsForm);
