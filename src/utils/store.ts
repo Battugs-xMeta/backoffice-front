@@ -20,7 +20,7 @@ export interface FinainceFormInfo {
 
 const defualtAtom = {
   pageSize: 20,
-  current: 0,
+  current: 1,
   sortDate: {
     start_day: calculateDeadlineDate(FilterDeadline.Month)?.map((el) =>
       el.format("YYYY-MM-DD")
@@ -35,6 +35,9 @@ export const atomWorkersForm = atom<FilterFormType>(defualtAtom);
 export const atomDeveloperPlan = atom<FilterFormType>(defualtAtom);
 export const atomElderlysWaitingForm = atom<FilterFormType>(defualtAtom);
 export const atomElderlysServicingForm = atom<FilterFormType>(defualtAtom);
+export const atomUsersForm = atom<FilterFormType>(defualtAtom);
+export const atomBankAccountsForm = atom<FilterFormType>(defualtAtom);
+export const atomBankDepositsForm = atom<FilterFormType>(defualtAtom);
 export const atomRequestedForm = atom<FilterFormType>(defualtAtom);
 export const atomTransictionAllForm = atom<FilterFormType>(defualtAtom);
 export const atomTransictionMovingForm = atom<FilterFormType>(defualtAtom);

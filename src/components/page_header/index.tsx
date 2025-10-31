@@ -1,9 +1,5 @@
 import { RiHome6Line } from "react-icons/ri";
 import { useLocation, useNavigate } from "react-router-dom";
-import INotification from "./notification";
-import { Button, Flex, Tooltip } from "antd";
-import { FilePdfOutlined } from "@ant-design/icons";
-import Handbook from "assets/doc/handbook.pdf";
 
 export type Props = {
   title?: String;
@@ -102,9 +98,6 @@ export const PageHeader = ({ title, subTitle }: Props) => {
           })}
         </div>
       </div>
-      <Flex align="center" gap={24}>
-        <INotification />
-      </Flex>
     </div>
   );
 };

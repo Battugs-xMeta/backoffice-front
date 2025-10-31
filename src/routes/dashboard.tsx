@@ -1,8 +1,13 @@
 import { lazy } from "react";
 import { IRoute } from "./types";
+import BankAccounts from "pages/dashboard/financials/bank-accounts";
+import BankDeposits from "pages/dashboard/financials/bank-deposits";
 
 const TrainingPage = lazy(() => import("pages/dashboard/training"));
 const FinancePage = lazy(() => import("pages/dashboard/user-management"));
+const KycInfoPage = lazy(
+  () => import("pages/dashboard/user-management/kyc-info")
+);
 const WorkersPage = lazy(() => import("pages/dashboard/workers"));
 const TransictionsPage = lazy(() => import("pages/dashboard/transictions"));
 const RequestedPage = lazy(() => import("pages/dashboard/requested"));
@@ -77,9 +82,19 @@ const dashboardRoutes: IRoute[] = [
     component: <CredentialsView />,
   },
   {
-    key: "finance",
-    path: "finance",
-    component: <FinancePage />,
+    key: "financials/bank-accounts",
+    path: "financials/bank-accounts",
+    component: <BankAccounts />,
+  },
+  {
+    key: "financials/bank-deposits",
+    path: "financials/bank-deposits",
+    component: <BankDeposits />,
+  },
+  {
+    key: "user-management/kyc-info",
+    path: "user-management/kyc-info",
+    component: <KycInfoPage />,
   },
   {
     key: "workers",

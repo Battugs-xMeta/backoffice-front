@@ -88,8 +88,8 @@ export const GroupedMenu: GroupedMenuProps[] = [
     children: [
       {
         icon: <img src={File04} />,
-        name: "KYC INFO",
-        path: "/xmeta/dashboard/finance",
+        name: "KYC info",
+        path: "/xmeta/dashboard/user-management/kyc-info",
       },
       {
         icon: <img src={File03} />,
@@ -115,13 +115,13 @@ export const GroupedMenu: GroupedMenuProps[] = [
     children: [
       {
         icon: <img src={Workers} />,
-        name: "Ажилчдын жагсаалт",
-        path: "/xmeta/dashboard/workers",
+        name: "Bank accounts",
+        path: "/xmeta/dashboard/financials/bank-accounts",
       },
       {
         icon: <img src={Certifcate} />,
-        name: "Сургалт хөгжил",
-        path: "/xmeta/dashboard/training",
+        name: "Bank deposits",
+        path: "/xmeta/dashboard/financials/bank-deposits",
       },
       // {
       //   icon: <img src={Trophy} />,

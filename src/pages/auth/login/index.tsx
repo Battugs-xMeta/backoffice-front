@@ -5,14 +5,15 @@ import ProForm, {
 } from "@ant-design/pro-form";
 import { useRequest } from "ahooks";
 import { Button, notification } from "antd";
+import Badge from "components/badge";
 import { useAuthContext } from "context/auth";
 import { Action } from "context/type";
-import { FC, useRef } from "react";
+import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import auth from "service/auth";
 import { LoginData } from "service/auth/type";
 
-const Login: FC = () => {
+const Login = () => {
   const formRef = useRef<ProFormInstance<LoginData>>(null);
 
   const [, setAuth] = useAuthContext();

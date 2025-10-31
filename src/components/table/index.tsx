@@ -76,7 +76,7 @@ export const ITable = <T extends {}>({
     page: 1,
     pageSize: limit ?? 20,
   });
-  const actionRef = useRef<ActionType>();
+  const actionRef = useRef<ActionType>(null);
   const [update, setUpdate] = useState<T>();
   const [detail, setDetail] = useState<T>();
   const [remove, setRemove] = useState<T>();

@@ -8,7 +8,7 @@ import NormativeExpense from "./nor-expense";
 import Form30Page from "./toform-30";
 import Spend30 from "./tospend-30";
 
-const TransictionsPage = () => {
+const UserManagementPage = () => {
   const [tab, setTab] = useState<any>(FilterFinanceLine.toForm30);
 
   const Incomebuttons: FilterFinanceButton[] = [
@@ -78,7 +78,7 @@ const TransictionsPage = () => {
   );
 };
 
-export default TransictionsPage;
+export default UserManagementPage;
 
 export const getColor = (status: number) => {
   switch (status) {

@@ -148,7 +148,7 @@ export const PageCard = ({
     <Card
       bodyStyle={{ padding: 0 }}
       headStyle={{ display: "none" }}
-      className={`p-4 ${xR && "px-0"} ${yR && "py-0"} ${className} `}
+      className={`p-4 ${xR && "px-0"} ${yR && "py-0"} ${className}`}
       bordered={false}
     >
       <div className={` ${bodyClassName} `}>

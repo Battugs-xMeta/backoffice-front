@@ -1,7 +1,7 @@
 import ProLayout from "@ant-design/pro-layout";
-import { PageHeader } from "components/page_header";
 import { useAuthContext } from "context/auth";
-import { FC, useState } from "react";
+import { useState } from "react";
+import logo from "public/svg/x-meta.svg";
 import {
   Link,
   Navigate,
@@ -12,11 +12,7 @@ import {
 import Header from "./header";
 import { GroupedMenu } from "./menu";
 
-type Props = {
-  children?: any;
-  props?: any;
-};
-const DashboardLayout: FC<Props> = ({}) => {
+const DashboardLayout = () => {
   const [{ authorized, user }] = useAuthContext();
   const [collapsed, setCollapsed] = useState(false);
 
@@ -26,15 +22,13 @@ const DashboardLayout: FC<Props> = ({}) => {
   if (!authorized) return <Navigate to={"/auth/login"} />;
 
   const Logo = ({ user }: { user: any }) => {
-    const imgSrc = "/images/logo.jpg";
-
     return (
       <div className="w-full">
         <div className="flex justify-center">
           <img
-            src={imgSrc}
+            src={logo}
             alt="logo"
-            className="md:flex rounded-lg shrink-0 w-8 h-8 min-[1000px]:w-10 min-[1000px]:h-10"
+            className="md:flex rounded-lg shrink-0 w-8 h-8 min-[1000px]:w-24 min-[1000px]:h-10"
             onClick={() => navigate("/dashboard/dashboard")}
           />
           {!collapsed && (
@@ -57,7 +51,7 @@ const DashboardLayout: FC<Props> = ({}) => {
   return (
     <div id="pro-layout">
       <ProLayout
-        siderWidth={280}
+        siderWidth={300}
         menuDataRender={() => GroupedMenu}
         menuItemRender={(item: any, dom) => {
           return (
@@ -85,7 +79,7 @@ const DashboardLayout: FC<Props> = ({}) => {
         disableMobile={false}
         onMenuHeaderClick={() => navigate("/dashboard/dashboard")}
         menu={{
-          defaultOpenAll: true,
+          defaultOpenAll: false,
           autoClose: false,
         }}
         onCollapse={(collapsed) => setCollapsed(collapsed)}
@@ -111,7 +105,7 @@ const DashboardLayout: FC<Props> = ({}) => {
         fixSiderbar={true}
         contentWidth={"Fluid"}
       >
-        <PageHeader />
+        {/* <PageHeader /> */}
         <Outlet />
       </ProLayout>
     </div>
