@@ -1,17 +1,17 @@
-import { useRequest } from "ahooks";
+import { useDebounceFn, useRequest } from "ahooks";
 import { notification } from "antd";
-import { ExportButton, ITable } from "components/index";
+import Badge from "components/badge";
+import { Breadcrumbs } from "components/breadcrumbs";
+import { PageCard } from "components/card";
+import { ExportButton, FilterForm, ITable } from "components/index";
 import InitTableHeader from "components/table-header";
 import { useAtom } from "jotai";
+import moment from "moment";
 import { useEffect, useState } from "react";
-import { exportFromTable } from "utils/export";
-import { atomUsersForm } from "utils/store";
-import { PageCard } from "components/card";
 import usersService from "service/users";
 import { UserListType } from "service/users/types";
-import moment from "moment";
-import { Breadcrumbs } from "components/breadcrumbs";
-import Badge from "components/badge";
+import { exportFromTable } from "utils/export";
+import { atomUsersForm } from "utils/store";
 
 const KycInfo = () => {
   const [form, setForm] = useAtom(atomUsersForm);
@@ -26,29 +26,28 @@ const KycInfo = () => {
   });
 
   useEffect(() => {
-    list.run({
-      current: form?.current || 1,
-      pageSize: form?.pageSize || 20,
-      query: search,
-    });
+    list.run({ ...form, query: search });
   }, [form]);
 
+  const searchRun = useDebounceFn(list.run, { wait: 1000 });
   return (
     <div className="flex flex-col gap-4">
       <Breadcrumbs path={<span>KYC info</span>} />
+      <FilterForm
+        initialValues={{
+          ...form,
+        }}
+        setselecteddate={setForm}
+      />
       <PageCard xR>
         <div className="px-2">
           <InitTableHeader
-            search={search}
             setSearch={(e) => {
               setSearch(e);
-              list.run({
-                ...form,
-                query: e,
-              });
+              searchRun.run({ ...form, query: e });
             }}
             customHeaderTitle="KYC info"
-            refresh={() => list.run({ ...form, query: search })}
+            refresh={() => searchRun.run({ ...form, query: search })}
             hideCreate
             toolbarItems={
               <div className="flex">

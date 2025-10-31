@@ -56,7 +56,6 @@ const WorkersPage: FC = () => {
             customHeaderTitle="Ажилчдын жагсаалт"
             searchPlaceHolder="Овог, нэр , регистрийн дугаар "
             setCreate={setCreate}
-            search={search}
             setSearch={(e) => {
               setSearch(e);
               searchRun.run({ ...form, query: e });

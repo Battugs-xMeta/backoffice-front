@@ -6,9 +6,9 @@ import ProForm, {
 } from "@ant-design/pro-form";
 import { Button, Popover } from "antd";
 import React, { useEffect, useRef, useState } from "react";
-import { FilterDeadline, FilterFormButton } from "types";
 import { FiCalendar } from "react-icons/fi";
 import { RiFilter3Fill } from "react-icons/ri";
+import { FilterDeadline, FilterFormButton } from "types";
 import { calculateDeadlineDate } from "utils/index";
 
 type Props = ProFormProps & {
@@ -75,7 +75,7 @@ export const FilterForm = ({
     },
   ];
 
-  const form = useRef<ProFormInstance>();
+  const form = useRef<ProFormInstance>(null);
 
   useEffect(() => {
     form.current?.setFieldsValue({ ...initialValues });
@@ -143,7 +143,7 @@ export const FilterForm = ({
                     suffixIcon: (
                       <FiCalendar className="text-gray-700 text-xl" />
                     ),
-                    onChange(_, formatString) {
+                    onChange(_: any, formatString: string | any[]) {
                       if (formatString.length === 2) {
                         setIsSelectedDate(true);
                       }

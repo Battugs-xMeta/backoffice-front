@@ -1,14 +1,14 @@
 import { ProFormInstance } from "@ant-design/pro-form";
+import { useRequest } from "ahooks";
+import { notification } from "antd";
 import { IModalForm } from "components/modal";
+import dayjs from "dayjs";
 import { useRef } from "react";
+import file from "service/file";
+import workers from "service/workers";
+import { WorkerList } from "service/workers/type";
 import { ActionComponentProps } from "types";
 import { Info } from "./parts/info";
-import workers from "service/workers";
-import dayjs from "dayjs";
-import { WorkerList } from "service/workers/type";
-import { useRequest } from "ahooks";
-import file from "service/file";
-import { notification } from "antd";
 
 export const CreateService = ({
   ...rest

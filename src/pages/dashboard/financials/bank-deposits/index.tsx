@@ -1,39 +1,28 @@
+import { ProFormSelect } from "@ant-design/pro-form";
 import { useRequest } from "ahooks";
 import { notification } from "antd";
-import { ExportButton, ITable } from "components/index";
-import InitTableHeader from "components/table-header";
-import { useAtom } from "jotai";
-import { useEffect, useState } from "react";
-import { exportFromTable } from "utils/export";
-import { atomBankDepositsForm } from "utils/store";
-import { PageCard } from "components/card";
-import moment from "moment";
-import { Breadcrumbs } from "components/breadcrumbs";
 import Badge from "components/badge";
+import { Breadcrumbs } from "components/breadcrumbs";
+import { PageCard } from "components/card";
+import { FilterForm, ITable } from "components/index";
+import InitTableHeader from "components/table-header";
+import { FORM_ITEM_RULE } from "config";
+import { useAtom } from "jotai";
+import moment from "moment";
+import { useEffect, useState } from "react";
 import bankDepositService from "services/bank-deposits";
 import {
   BankDepositListType,
+  UserBankDepositConditionTypeEnum,
+  UserBankDepositConditionTypeEnumOptions,
   UserBankDepositTypeEnum,
+  UserBankDepositTypeEnumOptions,
 } from "services/bank-deposits/types";
-import { BANK_DEPOSIT_FILTER_OPTIONS } from "components/filter-popover/options";
+import { atomBankDepositsForm } from "utils/store";
 
 const BankDeposits = () => {
   const [form, setForm] = useAtom(atomBankDepositsForm);
   const [search, setSearch] = useState<string>("");
-  const [currentFilter, setCurrentFilter] = useState<UserBankDepositTypeEnum>(
-    UserBankDepositTypeEnum.BankDepositTypeQuery
-  );
-
-  const handleFilterApply = (filterType: string) => {
-    const enumValue = filterType as UserBankDepositTypeEnum;
-    setCurrentFilter(enumValue);
-    list.run({
-      current: form?.current || 1,
-      pageSize: form?.pageSize || 20,
-      query: search,
-      type: enumValue,
-    });
-  };
 
   const list = useRequest(bankDepositService.list, {
     manual: true,
@@ -44,62 +33,82 @@ const BankDeposits = () => {
   });
 
   useEffect(() => {
-    list.run({
-      current: form?.current || 1,
-      pageSize: form?.pageSize || 20,
-      query: search,
-      type: currentFilter,
-    });
-  }, [form, search, currentFilter]);
+    const requestData = { ...form };
+    if (form.type === UserBankDepositTypeEnum.BankDepositTypeAmount) {
+      requestData.amount = Number(form.amount);
+    }
+    list.run(requestData);
+  }, [form]);
 
   return (
     <div className="flex flex-col gap-4">
       <Breadcrumbs path={<span>Bank Deposits</span>} />
+      <FilterForm
+        initialValues={{
+          ...form,
+        }}
+        setselecteddate={setForm}
+      />
       <PageCard xR>
         <div className="px-2">
           <InitTableHeader
-            search={search}
             setSearch={(e) => {
               setSearch(e);
-              list.run({
-                ...form,
-                query: e,
-                type: currentFilter,
-              });
+              if (
+                form?.type === UserBankDepositTypeEnum.BankDepositTypeAmount
+              ) {
+                list.run({ ...form, query: "", amount: Number(e) });
+              } else {
+                list.run({ ...form, query: e });
+              }
             }}
+            fileName="Bank Deposits"
             customHeaderTitle="Bank Deposits"
             refresh={() =>
-              list.run({ ...form, query: search, type: currentFilter })
+              list.run({ ...form, query: search, type: form.type })
             }
             hideCreate
-            hideFormFilter={false}
-            onFilterApply={handleFilterApply}
-            filterOptions={BANK_DEPOSIT_FILTER_OPTIONS}
-            filterTitle="Filter Bank Deposits"
-            defaultFilterValue={currentFilter}
-            toolbarItems={
-              <div className="flex">
-                <ExportButton
-                  onClick={() => {
-                    exportFromTable(
-                      ["Bank Deposits"],
-                      globalThis.document.getElementById(
-                        "main-table"
-                      ) as HTMLElement
-                    );
+            tableID="main-table"
+            filter={
+              <div className="flex gap-2">
+                <ProFormSelect
+                  name={"type"}
+                  options={UserBankDepositTypeEnumOptions}
+                  rules={FORM_ITEM_RULE()}
+                  fieldProps={{
+                    onChange: (value: UserBankDepositTypeEnum) => {
+                      setForm({ ...form, type: value });
+                    },
+                    value: form?.type,
                   }}
                 />
+                {form?.type ===
+                  UserBankDepositTypeEnum.BankDepositTypeAmount && (
+                  <ProFormSelect
+                    name={"condition"}
+                    options={UserBankDepositConditionTypeEnumOptions}
+                    rules={FORM_ITEM_RULE()}
+                    fieldProps={{
+                      onChange: (value: UserBankDepositConditionTypeEnum) => {
+                        setForm({ ...form, query: value });
+                      },
+                      value:
+                        UserBankDepositConditionTypeEnum.DepositWithdrawalConditionEqual,
+                    }}
+                  />
+                )}
               </div>
             }
           />
         </div>
+
         <ITable<BankDepositListType>
           dataSource={list?.data?.items ?? []}
           total={list.data?.total}
           loading={list.loading}
           form={form}
           setForm={setForm}
-          refresh={(values) => list.run({ ...form, ...values, status: 6 })}
+          refresh={(values) => list.run({ ...form, ...values })}
           columns={[
             {
               dataIndex: "id",

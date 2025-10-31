@@ -149,6 +149,8 @@ export const ConfirmButton = ({ ...rest }: ButtonProps) => {
           className="text-white "
           size={20}
           rev={undefined}
+          onPointerEnterCapture={undefined}
+          onPointerLeaveCapture={undefined}
         />
       }
       color="green"
