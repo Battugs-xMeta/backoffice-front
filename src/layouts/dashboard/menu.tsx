@@ -83,7 +83,7 @@ export const GroupedMenu: GroupedMenuProps[] = [
   },
   {
     name: "User management",
-    icon: null,
+    icon: <img src={List} />,
     path: "",
     children: [
       {
@@ -110,7 +110,7 @@ export const GroupedMenu: GroupedMenuProps[] = [
   },
   {
     name: "Financials",
-    icon: null,
+    icon: <img src={Organization} />,
     path: "",
     children: [
       {
@@ -141,8 +141,25 @@ export const GroupedMenu: GroupedMenuProps[] = [
     ],
   },
   {
+    name: "Crypto",
+    icon: <img src={Currency} />,
+    path: "",
+    children: [
+      {
+        icon: <img src={Requested} />,
+        name: "Deposit history",
+        path: "/xmeta/dashboard/crypto/crypto-deposit-history",
+      },
+      {
+        icon: <img src={Requested} />,
+        name: "Withdrawal history",
+        path: "/xmeta/dashboard/crypto/crypto-withdrawal-history",
+      },
+    ],
+  },
+  {
     name: "User Trade",
-    icon: null,
+    icon: <img src={Certifcate} />,
     path: "",
     children: [
       {
@@ -164,7 +181,7 @@ export const GroupedMenu: GroupedMenuProps[] = [
   },
   {
     name: "Тохиргоо",
-    icon: null,
+    icon: <img src={DeveloperPlan} />,
     path: "",
     children: [
       {

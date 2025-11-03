@@ -4,7 +4,8 @@ import moment from "moment";
 import {
   BankDepositListRequest,
   UserBankDepositTypeEnum,
-} from "service/bank-deposits/types";
+} from "pages/dashboard/financials/bank-deposits/types";
+
 import { FilterDeadline } from "types";
 import { calculateDeadlineDate } from "utils/index";
 export interface FilterFormType {
@@ -62,6 +63,9 @@ export const atomBankAccountsForm = atom<FilterFormType>(defualtAtom);
 export const atomBankDepositsForm = atom<BankDepositListRequest>(
   defualtAtomBankDeposits
 );
+export const atomCryptoDepositHistoryForm = atom<FilterFormType>(defualtAtom);
+export const atomCryptoWithdrawalHistoryForm =
+  atom<FilterFormType>(defualtAtom);
 export const atomRequestedForm = atom<FilterFormType>(defualtAtom);
 export const atomTransictionAllForm = atom<FilterFormType>(defualtAtom);
 export const atomTransictionMovingForm = atom<FilterFormType>(defualtAtom);

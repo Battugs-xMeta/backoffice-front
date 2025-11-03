@@ -5,25 +5,27 @@ import InitTableHeader from "components/table-header";
 import { useAtom } from "jotai";
 import { useEffect, useState } from "react";
 import { exportFromTable } from "utils/export";
-import { atomBankAccountsForm } from "utils/store";
+import { atomCryptoDepositHistoryForm } from "utils/store";
 import { PageCard } from "components/card";
 import moment from "moment";
 import { Breadcrumbs } from "components/breadcrumbs";
 import Badge from "components/badge";
-import { BANK_ACCOUNT_FILTER_OPTIONS } from "components/filter-popover/options";
-import { BankAccountListItem, UserBankAccountWalletsTypeEnum } from "./types";
-import bankAccountService from "./service";
+import {
+  BankDepositListType,
+  UserBankDepositTypeEnum,
+} from "pages/dashboard/financials/bank-deposits/types";
+import { BANK_DEPOSIT_FILTER_OPTIONS } from "components/filter-popover/options";
+import cryptoDepositHistoryService from "./service";
 
-const BankAccounts = () => {
-  const [form, setForm] = useAtom(atomBankAccountsForm);
+const CryptoDepositHistory = () => {
+  const [form, setForm] = useAtom(atomCryptoDepositHistoryForm);
   const [search, setSearch] = useState<string>("");
-  const [currentFilter, setCurrentFilter] =
-    useState<UserBankAccountWalletsTypeEnum>(
-      UserBankAccountWalletsTypeEnum.DefaultFilterByUser
-    );
+  const [currentFilter, setCurrentFilter] = useState<UserBankDepositTypeEnum>(
+    UserBankDepositTypeEnum.BankDepositTypeQuery
+  );
 
   const handleFilterApply = (filterType: string) => {
-    const enumValue = filterType as UserBankAccountWalletsTypeEnum;
+    const enumValue = filterType as UserBankDepositTypeEnum;
     setCurrentFilter(enumValue);
     list.run({
       current: form?.current || 1,
@@ -33,7 +35,7 @@ const BankAccounts = () => {
     });
   };
 
-  const list = useRequest(bankAccountService.list, {
+  const list = useRequest(cryptoDepositHistoryService.list, {
     manual: true,
     onError: (err) =>
       notification.error({
@@ -52,7 +54,7 @@ const BankAccounts = () => {
 
   return (
     <div className="flex flex-col gap-4">
-      <Breadcrumbs path={<span>Bank Accounts</span>} />
+      <Breadcrumbs path={<span>Deposit history</span>} />
       <PageCard xR>
         <div className="px-2">
           <InitTableHeader
@@ -64,7 +66,7 @@ const BankAccounts = () => {
                 type: currentFilter,
               });
             }}
-            customHeaderTitle="Bank Accounts"
+            customHeaderTitle="Deposit history"
             refresh={() =>
               list.run({ ...form, query: search, type: currentFilter })
             }
@@ -75,7 +77,7 @@ const BankAccounts = () => {
                 <ExportButton
                   onClick={() => {
                     exportFromTable(
-                      ["Bank Accounts"],
+                      ["Deposit history"],
                       globalThis.document.getElementById(
                         "main-table"
                       ) as HTMLElement
@@ -86,7 +88,7 @@ const BankAccounts = () => {
             }
           />
         </div>
-        <ITable<BankAccountListItem>
+        <ITable<BankDepositListType>
           dataSource={list?.data?.items ?? []}
           total={list.data?.total}
           loading={list.loading}
@@ -106,28 +108,28 @@ const BankAccounts = () => {
               ),
             },
             {
-              dataIndex: "accountName",
-              title: "Овог нэр",
-              align: "left",
-              render: (value) => (
-                <span className="text-sm text-[#475467] font-normal flex text-center">
-                  {value ?? ""}
-                </span>
-              ),
-            },
-            {
-              dataIndex: "email",
-              title: "И-мэйл",
+              dataIndex: "lastName",
+              title: "Овог",
               align: "left",
               render: (_, option) => (
                 <span className="text-sm text-[#475467] font-normal flex text-center">
-                  {option.User.email ?? ""}
+                  {option.User.lastName ?? ""}
                 </span>
               ),
             },
             {
-              dataIndex: "accountNumber",
-              title: "Дансны дугаар",
+              dataIndex: "firstName",
+              title: "Нэр",
+              align: "left",
+              render: (_, option) => (
+                <span className="text-sm text-[#475467] font-normal flex text-center">
+                  {option.User.firstName ?? ""}
+                </span>
+              ),
+            },
+            {
+              dataIndex: "depositAmount",
+              title: "depositAmount",
               align: "left",
               render: (value) => (
                 <span className="text-sm text-[#475467] font-normal flex text-center">
@@ -136,17 +138,17 @@ const BankAccounts = () => {
               ),
             },
             {
-              dataIndex: "bank",
-              title: "Банкны нэр",
-              render: (_: any, option) => (
+              dataIndex: "txnAmount",
+              title: "txnAmount",
+              render: (value: any) => (
                 <span className="text-sm text-[#475467] font-normal flex text-center">
-                  {option.Bank.nameMn || "-"}
+                  {value}
                 </span>
               ),
             },
             {
-              dataIndex: "iban",
-              title: "IBAN",
+              dataIndex: "currency",
+              title: "currency",
               render: (value: any) => (
                 <span className="text-sm text-[#475467] font-normal flex text-center">
                   {value}
@@ -161,18 +163,6 @@ const BankAccounts = () => {
                   title={String(value)}
                   color={value === "verified" ? "green" : "yellow"}
                 />
-              ),
-            },
-            {
-              dataIndex: "verifiedAt",
-              title: "Баталгаажсан огноо",
-              align: "center",
-              render: (value) => (
-                <span className="text-sm text-[#475467] font-normal">
-                  {moment(value ? String(value) : undefined).format(
-                    "YYYY-MM-DD HH:mm:ss"
-                  ) || "-"}
-                </span>
               ),
             },
             {
@@ -206,4 +196,4 @@ const BankAccounts = () => {
   );
 };
 
-export default BankAccounts;
+export default CryptoDepositHistory;

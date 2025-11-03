@@ -3,6 +3,8 @@ import { IRoute } from "./types";
 import BankAccounts from "pages/dashboard/financials/bank-accounts";
 import BankDeposits from "pages/dashboard/financials/bank-deposits";
 import BankWithdrawals from "pages/dashboard/financials/bank-withdrawals";
+import CryptoDepositHistory from "pages/dashboard/crypto/crypto-deposit-history";
+import CryptoWithdrawalHistory from "pages/dashboard/crypto/crypto-withdrawal-history";
 
 const TrainingPage = lazy(() => import("pages/dashboard/training"));
 const FinancePage = lazy(() => import("pages/dashboard/user-management"));
@@ -101,6 +103,16 @@ const dashboardRoutes: IRoute[] = [
     key: "financials/bank-withdrawals",
     path: "financials/bank-withdrawals",
     component: <BankWithdrawals />,
+  },
+  {
+    key: "crypto/crypto-deposit-history",
+    path: "crypto/crypto-deposit-history",
+    component: <CryptoDepositHistory />,
+  },
+  {
+    key: "crypto/crypto-withdrawal-history",
+    path: "crypto/crypto-withdrawal-history",
+    component: <CryptoWithdrawalHistory />,
   },
   {
     key: "workers",
